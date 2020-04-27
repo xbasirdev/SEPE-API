@@ -17,3 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('login', 'UserController@auth')->name('login');
+
+Route::post('users', 'UserController@store');
+Route::post('login', 'UserController@login');
+Route::post('logout', 'UserController@logout');
+
+Route::group(['middleware'=>'auth:api'], function(){
+    Route::ApiResource('cuestionarios', 'CuestionarioController');
+    //Route::post('logout', 'UserController@logout');
+});
